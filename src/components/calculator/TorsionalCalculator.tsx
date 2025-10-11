@@ -40,21 +40,30 @@ export function TorsionalCalculator() {
 
   const onSubmit = (data: any) => {
     try {
-      const volume = data.mode === 'beam'
-        ? data.length * data.width * data.depth
-        : Math.PI * Math.pow(data.diameter / 2, 2) * data.length;
+      let geometry: SpecimenGeometry;
       
-      const mass = data.density * volume;
-
-      const geometry: SpecimenGeometry = {
-        type: data.mode,
-        length: data.length,
-        mass,
-        density: data.density,
-        ...(data.mode === 'beam' 
-          ? { width: data.width, depth: data.depth }
-          : { diameter: data.diameter })
-      };
+      if (data.mode === 'beam') {
+        const volume = data.length * data.width * data.depth;
+        const mass = data.density * volume;
+        geometry = {
+          type: 'beam',
+          length: data.length,
+          mass,
+          density: data.density,
+          width: data.width,
+          depth: data.depth,
+        };
+      } else {
+        const volume = Math.PI * Math.pow(data.diameter / 2, 2) * data.length;
+        const mass = data.density * volume;
+        geometry = {
+          type: 'cylinder',
+          length: data.length,
+          mass,
+          density: data.density,
+          diameter: data.diameter,
+        };
+      }
 
       const modulus = calculateTorsionalModulus(geometry, data.frequency);
       const resultData: ModulusResult = {
@@ -114,16 +123,19 @@ export function TorsionalCalculator() {
   };
 
   const loadExample = () => {
-    const example = specimenType === 'beam' ? getExampleValues().beam : getExampleValues().cylinder;
-    form.setValue('frequency', example.f_torsional);
-    form.setValue('length', example.length);
-    form.setValue('density', example.density);
-    
     if (specimenType === 'beam') {
-      form.setValue('width', example.width!);
-      form.setValue('depth', example.depth!);
+      const example = getExampleValues().beam;
+      form.setValue('frequency', example.f_torsional);
+      form.setValue('length', example.length);
+      form.setValue('density', example.density);
+      form.setValue('width', example.width);
+      form.setValue('depth', example.depth);
     } else {
-      form.setValue('diameter', example.diameter!);
+      const example = getExampleValues().cylinder;
+      form.setValue('frequency', example.f_torsional);
+      form.setValue('length', example.length);
+      form.setValue('density', example.density);
+      form.setValue('diameter', example.diameter);
     }
     
     toast({

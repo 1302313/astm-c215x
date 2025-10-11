@@ -1,5 +1,8 @@
+export type SpecimenType = 'beam' | 'cylinder';
+export type ModulusMode = 'longitudinal' | 'transverse' | 'torsional';
+
 export interface SpecimenGeometry {
-  type: 'beam' | 'cylinder';
+  type: SpecimenType;
   length: number;
   mass: number;
   density: number;
@@ -9,7 +12,7 @@ export interface SpecimenGeometry {
 }
 
 export interface ModulusResult {
-  mode: 'longitudinal' | 'transverse' | 'torsional';
+  mode: ModulusMode;
   frequency: number;
   modulus: number;
   unit: 'GPa';

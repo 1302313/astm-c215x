@@ -109,16 +109,19 @@ export function TransverseCalculator() {
   };
 
   const loadExample = () => {
-    const example = specimenType === 'beam' ? getExampleValues().beam : getExampleValues().cylinder;
-    form.setValue('frequency', example.f_transverse);
-    form.setValue('length', example.length);
-    form.setValue('mass', example.mass);
-    
     if (specimenType === 'beam') {
-      form.setValue('width', example.width!);
-      form.setValue('depth', example.depth!);
+      const example = getExampleValues().beam;
+      form.setValue('frequency', example.f_transverse);
+      form.setValue('length', example.length);
+      form.setValue('mass', example.mass);
+      form.setValue('width', example.width);
+      form.setValue('depth', example.depth);
     } else {
-      form.setValue('diameter', example.diameter!);
+      const example = getExampleValues().cylinder;
+      form.setValue('frequency', example.f_transverse);
+      form.setValue('length', example.length);
+      form.setValue('mass', example.mass);
+      form.setValue('diameter', example.diameter);
     }
     
     toast({

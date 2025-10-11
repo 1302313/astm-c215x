@@ -43,7 +43,9 @@ const Index = () => {
         <footer className="mt-16 pb-8 text-center text-sm text-muted-foreground space-y-1">
           <p>Based on ASTM C215-14: Standard Test Method for Fundamental</p>
           <p>Transverse, Longitudinal, and Torsional Resonant Frequencies of Concrete Specimens</p>
-          <p className="mt-4 font-medium">© 2025 ASTM C215 Calculator</p>
+          <p className="mt-4 font-medium">
+            Designed and Curated by AMS<sup>13</sup>
+          </p>
         </footer>
       </div>
     </div>

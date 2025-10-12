@@ -3,6 +3,9 @@ import { LongitudinalCalculator } from "@/components/calculator/LongitudinalCalc
 import { TransverseCalculator } from "@/components/calculator/TransverseCalculator";
 import { TorsionalCalculator } from "@/components/calculator/TorsionalCalculator";
 import { UnifiedCalculator } from "@/components/calculator/UnifiedCalculator";
+import { AstmSummaryPanel } from "@/components/documentation/AstmSummaryPanel";
+import { VibrationDiagrams } from "@/components/documentation/VibrationDiagrams";
+import { HelpModal } from "@/components/documentation/HelpModal";
 
 const Index = () => {
   return (
@@ -14,6 +17,14 @@ const Index = () => {
             Dynamic Modulus of Elasticity via Resonant Frequency Method
           </p>
         </header>
+
+        <AstmSummaryPanel />
+        
+        <VibrationDiagrams />
+        
+        <div className="flex justify-center mb-6">
+          <HelpModal />
+        </div>
 
         <Tabs defaultValue="longitudinal" className="w-full">
           <TabsList className="grid w-full grid-cols-4 mb-6">

@@ -4,7 +4,6 @@ import { TransverseCalculator } from "@/components/calculator/TransverseCalculat
 import { TorsionalCalculator } from "@/components/calculator/TorsionalCalculator";
 import { UnifiedCalculator } from "@/components/calculator/UnifiedCalculator";
 import { AstmSummaryPanel } from "@/components/documentation/AstmSummaryPanel";
-import { VibrationDiagrams } from "@/components/documentation/VibrationDiagrams";
 import { HelpModal } from "@/components/documentation/HelpModal";
 
 const Index = () => {
@@ -19,8 +18,6 @@ const Index = () => {
         </header>
 
         <AstmSummaryPanel />
-        
-        <VibrationDiagrams />
         
         <div className="flex justify-center mb-6">
           <HelpModal />

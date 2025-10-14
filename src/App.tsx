@@ -8,12 +8,14 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+const BASENAME = import.meta.env.PROD ? "/astm-c215x" : undefined;
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter basename="/astm-c215x">
+      <BrowserRouter basename={BASENAME}>
         <Routes>
           <Route path="/" element={<Index />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

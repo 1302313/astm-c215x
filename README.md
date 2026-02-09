@@ -145,10 +145,6 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/3e8f3759-4be7-46c5-bcfc-949a32627f3b) and click on Share -> Publish.
-
 ## Custom domain AI project
 
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.

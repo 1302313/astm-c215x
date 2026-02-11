@@ -13,7 +13,7 @@ import { calculateTorsionalModulus, getExampleValues } from '@/utils/astm-calcul
 import { exportReport } from '@/utils/pdf-export';
 import { torsionalBeamSchema, torsionalCylinderSchema } from '@/schemas/astm-schemas';
 import type { ModulusResult, ChartDataPoint, SpecimenGeometry } from '@/types/astm-c215';
-import { Download, RotateCcw, Lightbulb } from 'lucide-react';
+import { Download, RotateCcw, Lightbulb, RotateCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export function TorsionalCalculator() {
@@ -151,14 +151,19 @@ export function TorsionalCalculator() {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex justify-between items-center">
-          <span>Torsional Modulus of Elasticity</span>
+    <Card className="glass-card glow-ring">
+      <CardHeader className="pb-2">
+        <CardTitle className="flex justify-between items-center text-lg">
+          <div className="flex items-center gap-2.5">
+            <div className="h-8 w-8 rounded-lg hero-gradient flex items-center justify-center">
+              <RotateCw className="h-4 w-4 text-white" />
+            </div>
+            <span>Torsional Modulus of Elasticity</span>
+          </div>
           <TheoryDialog mode="torsional" />
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-5 pt-4">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -307,12 +312,12 @@ export function TorsionalCalculator() {
               </>
             )}
 
-            <div className="flex gap-2 flex-wrap">
-              <Button type="submit" className="flex-1">
+            <div className="flex gap-2 flex-wrap pt-2">
+              <Button type="submit" className="flex-1 h-11 hero-gradient border-0 font-semibold text-white shadow-md hover:opacity-90 transition-opacity">
                 Calculate
               </Button>
-              <Button type="button" variant="outline" onClick={loadExample}>
-                <Lightbulb className="h-4 w-4 mr-2" />
+              <Button type="button" variant="outline" onClick={loadExample} className="h-11 gap-2">
+                <Lightbulb className="h-4 w-4" />
                 Example
               </Button>
             </div>
@@ -325,7 +330,7 @@ export function TorsionalCalculator() {
           <ModulusChart 
             data={chartData} 
             label="G (GPa)"
-            color="#059669"
+            color="hsl(var(--chart-torsional))"
           />
         </div>
 

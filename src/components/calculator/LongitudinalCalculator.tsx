@@ -13,7 +13,7 @@ import { calculateLongitudinalModulus, getExampleValues } from '@/utils/astm-cal
 import { exportReport } from '@/utils/pdf-export';
 import { longitudinalSchema } from '@/schemas/astm-schemas';
 import type { ModulusResult, ChartDataPoint } from '@/types/astm-c215';
-import { Download, RotateCcw, Lightbulb } from 'lucide-react';
+import { Download, RotateCcw, Lightbulb, Calculator } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 type LongitudinalFormData = z.infer<typeof longitudinalSchema>;
@@ -38,7 +38,7 @@ export function LongitudinalCalculator() {
       const resultData: ModulusResult = {
         mode: 'longitudinal',
         frequency: data.frequency,
-        modulus: modulus / 1e9, // Convert to GPa
+        modulus: modulus / 1e9,
         unit: 'GPa',
       };
       
@@ -108,82 +108,92 @@ export function LongitudinalCalculator() {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex justify-between items-center">
-          <span>Longitudinal Modulus of Elasticity</span>
+    <Card className="glass-card glow-ring">
+      <CardHeader className="pb-2">
+        <CardTitle className="flex justify-between items-center text-lg">
+          <div className="flex items-center gap-2.5">
+            <div className="h-8 w-8 rounded-lg hero-gradient flex items-center justify-center">
+              <Calculator className="h-4 w-4 text-white" />
+            </div>
+            <span>Longitudinal Modulus of Elasticity</span>
+          </div>
           <TheoryDialog mode="longitudinal" />
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-5 pt-4">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="frequency"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Frequency (Hz)</FormLabel>
-                  <FormControl>
-                    <Input 
-                      type="number" 
-                      step="0.01" 
-                      placeholder="e.g., 8000"
-                      {...field}
-                      onChange={e => field.onChange(parseFloat(e.target.value) || 0)}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid gap-4 sm:grid-cols-3">
+              <FormField
+                control={form.control}
+                name="frequency"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Frequency (Hz)</FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="number" 
+                        step="0.01" 
+                        placeholder="e.g., 8000"
+                        className="font-mono input-focus"
+                        {...field}
+                        onChange={e => field.onChange(parseFloat(e.target.value) || 0)}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="length"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Length (m)</FormLabel>
-                  <FormControl>
-                    <Input 
-                      type="number" 
-                      step="0.001" 
-                      placeholder="e.g., 0.4"
-                      {...field}
-                      onChange={e => field.onChange(parseFloat(e.target.value) || 0)}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="length"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Length (m)</FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="number" 
+                        step="0.001" 
+                        placeholder="e.g., 0.4"
+                        className="font-mono input-focus"
+                        {...field}
+                        onChange={e => field.onChange(parseFloat(e.target.value) || 0)}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="density"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Density (kg/m³)</FormLabel>
-                  <FormControl>
-                    <Input 
-                      type="number" 
-                      step="1" 
-                      placeholder="e.g., 2400"
-                      {...field}
-                      onChange={e => field.onChange(parseFloat(e.target.value) || 0)}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="density"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Density (kg/m³)</FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="number" 
+                        step="1" 
+                        placeholder="e.g., 2400"
+                        className="font-mono input-focus"
+                        {...field}
+                        onChange={e => field.onChange(parseFloat(e.target.value) || 0)}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-            <div className="flex gap-2 flex-wrap">
-              <Button type="submit" className="flex-1">
+            <div className="flex gap-2 flex-wrap pt-2">
+              <Button type="submit" className="flex-1 h-11 hero-gradient border-0 font-semibold text-white shadow-md hover:opacity-90 transition-opacity">
                 Calculate
               </Button>
-              <Button type="button" variant="outline" onClick={loadExample}>
-                <Lightbulb className="h-4 w-4 mr-2" />
+              <Button type="button" variant="outline" onClick={loadExample} className="h-11 gap-2">
+                <Lightbulb className="h-4 w-4" />
                 Example
               </Button>
             </div>
@@ -196,18 +206,18 @@ export function LongitudinalCalculator() {
           <ModulusChart 
             data={chartData} 
             label="Eₗ (GPa)"
-            color="#2563eb"
+            color="hsl(var(--chart-longitudinal))"
           />
         </div>
 
         {result && (
           <div className="flex gap-2 flex-wrap">
-            <Button variant="outline" onClick={handleReset}>
-              <RotateCcw className="h-4 w-4 mr-2" />
+            <Button variant="outline" onClick={handleReset} className="gap-2">
+              <RotateCcw className="h-4 w-4" />
               Reset
             </Button>
-            <Button variant="outline" onClick={handleExport}>
-              <Download className="h-4 w-4 mr-2" />
+            <Button variant="outline" onClick={handleExport} className="gap-2">
+              <Download className="h-4 w-4" />
               Export PDF
             </Button>
           </div>

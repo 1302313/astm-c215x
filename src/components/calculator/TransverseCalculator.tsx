@@ -14,7 +14,7 @@ import { calculateTransverseModulus, getExampleValues } from '@/utils/astm-calcu
 import { exportReport } from '@/utils/pdf-export';
 import { transverseBeamSchema, transverseCylinderSchema } from '@/schemas/astm-schemas';
 import type { ModulusResult, ChartDataPoint, SpecimenGeometry } from '@/types/astm-c215';
-import { Download, RotateCcw, Lightbulb } from 'lucide-react';
+import { Download, RotateCcw, Lightbulb, Waves } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export function TransverseCalculator() {
@@ -137,14 +137,19 @@ export function TransverseCalculator() {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex justify-between items-center">
-          <span>Transverse Modulus of Elasticity</span>
+    <Card className="glass-card glow-ring">
+      <CardHeader className="pb-2">
+        <CardTitle className="flex justify-between items-center text-lg">
+          <div className="flex items-center gap-2.5">
+            <div className="h-8 w-8 rounded-lg hero-gradient flex items-center justify-center">
+              <Waves className="h-4 w-4 text-white" />
+            </div>
+            <span>Transverse Modulus of Elasticity</span>
+          </div>
           <TheoryDialog mode="transverse" />
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-5 pt-4">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -293,12 +298,12 @@ export function TransverseCalculator() {
               />
             )}
 
-            <div className="flex gap-2 flex-wrap">
-              <Button type="submit" className="flex-1">
+            <div className="flex gap-2 flex-wrap pt-2">
+              <Button type="submit" className="flex-1 h-11 hero-gradient border-0 font-semibold text-white shadow-md hover:opacity-90 transition-opacity">
                 Calculate
               </Button>
-              <Button type="button" variant="outline" onClick={loadExample}>
-                <Lightbulb className="h-4 w-4 mr-2" />
+              <Button type="button" variant="outline" onClick={loadExample} className="h-11 gap-2">
+                <Lightbulb className="h-4 w-4" />
                 Example
               </Button>
             </div>
@@ -311,7 +316,7 @@ export function TransverseCalculator() {
           <ModulusChart 
             data={chartData} 
             label="Eₜ (GPa)"
-            color="#7c3aed"
+            color="hsl(var(--chart-transverse))"
           />
         </div>
 

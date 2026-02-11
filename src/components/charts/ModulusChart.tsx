@@ -1,5 +1,6 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { BarChart3 } from 'lucide-react';
 import type { ChartDataPoint } from '@/types/astm-c215';
 
 interface ModulusChartProps {
@@ -13,22 +14,25 @@ export function ModulusChart({
   data, 
   label = 'Modulus (GPa)', 
   title = 'Dynamic Modulus vs Frequency',
-  color = '#2563eb'
+  color = 'hsl(var(--chart-longitudinal))'
 }: ModulusChartProps) {
   if (data.length === 0) {
     return (
-      <Card className="mt-4">
-        <CardContent className="p-8 text-center text-muted-foreground">
-          No data to display. Perform calculations to see the chart.
+      <Card className="mt-4 border-dashed border-2 border-border/50 bg-transparent">
+        <CardContent className="p-10 text-center">
+          <BarChart3 className="h-8 w-8 text-muted-foreground/30 mx-auto mb-3" />
+          <p className="text-sm text-muted-foreground">
+            No data to display. Perform calculations to see the chart.
+          </p>
         </CardContent>
       </Card>
     );
   }
 
   return (
-    <Card className="mt-4">
-      <CardHeader>
-        <CardTitle className="text-base">{title}</CardTitle>
+    <Card className="mt-4 animate-in">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-sm font-semibold text-muted-foreground">{title}</CardTitle>
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={300}>
@@ -47,7 +51,9 @@ export function ModulusChart({
               contentStyle={{ 
                 backgroundColor: 'hsl(var(--card))', 
                 border: '1px solid hsl(var(--border))',
-                borderRadius: '6px'
+                borderRadius: '8px',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                fontSize: '12px',
               }}
             />
             <Legend />
@@ -55,9 +61,9 @@ export function ModulusChart({
               type="monotone" 
               dataKey="modulus" 
               stroke={color}
-              strokeWidth={2}
-              dot={{ r: 4 }}
-              activeDot={{ r: 6 }}
+              strokeWidth={2.5}
+              dot={{ r: 5, fill: color, strokeWidth: 2, stroke: 'hsl(var(--card))' }}
+              activeDot={{ r: 7 }}
               name={label}
             />
           </LineChart>

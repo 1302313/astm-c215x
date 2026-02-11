@@ -12,7 +12,7 @@ import { calculateLongitudinalModulus, calculateTransverseModulus, calculateTors
 import { exportCombinedReport } from '@/utils/pdf-export';
 import { unifiedBeamSchema, unifiedCylinderSchema } from '@/schemas/astm-schemas';
 import type { ModulusResult, SpecimenGeometry } from '@/types/astm-c215';
-import { Download, RotateCcw, Lightbulb } from 'lucide-react';
+import { Download, RotateCcw, Lightbulb, Layers } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export function UnifiedCalculator() {
@@ -115,11 +115,16 @@ export function UnifiedCalculator() {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Unified Specimen Profile</CardTitle>
+    <Card className="glass-card glow-ring">
+      <CardHeader className="pb-2">
+        <CardTitle className="flex items-center gap-2.5 text-lg">
+          <div className="h-8 w-8 rounded-lg hero-gradient flex items-center justify-center">
+            <Layers className="h-4 w-4 text-white" />
+          </div>
+          Unified Specimen Profile
+        </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-5 pt-4">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField control={form.control} name="geometry" render={({ field }) => (
@@ -176,9 +181,9 @@ export function UnifiedCalculator() {
               )} />
             </div>
 
-            <div className="flex gap-2">
-              <Button type="submit" className="flex-1">Calculate All</Button>
-              <Button type="button" variant="outline" onClick={loadExample}><Lightbulb className="h-4 w-4" /></Button>
+            <div className="flex gap-2 pt-2">
+              <Button type="submit" className="flex-1 h-11 hero-gradient border-0 font-semibold text-white shadow-md hover:opacity-90 transition-opacity">Calculate All</Button>
+              <Button type="button" variant="outline" onClick={loadExample} className="h-11"><Lightbulb className="h-4 w-4" /></Button>
             </div>
           </form>
         </Form>
